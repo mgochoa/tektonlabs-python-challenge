@@ -8,6 +8,7 @@ from tekton_challenge.routers import inventory_router
 
 
 def create_app() -> FastAPI:
+    """ Generate the FastAPI app"""
     container = Container()
 
     db = container.db()

@@ -36,6 +36,12 @@ class LocalCacheRepository(CacheProtocol):
             self._data = dict()
 
     def get(self, key: str) -> str:
+        """
+        Check if key exists in dictionary, then check the ttl if it's expired delete the value
+        if the ttl is not expired yet, return the value
+        if nothing above returns, then raise a CacheNotFoundError
+
+    """
         if key in self._data:
             try:
                 self.check_ttl(self._data[key])
@@ -47,7 +53,7 @@ class LocalCacheRepository(CacheProtocol):
 
     def set(self, key: str, value: str, ttl: int = 300) -> None:
         """
-        Save in cache
+        Save in key,value in cache as a CachedObject
         :param value: value to store
         :param key: key to store
         :param ttl: time to live in seconds
@@ -57,10 +63,12 @@ class LocalCacheRepository(CacheProtocol):
         self._data[key] = CachedObject(key, value, end_datetime)
 
     def reset(self):
+        """Reset the cache data source"""
         self._data = dict()
 
     @staticmethod
     def _get_now() -> datetime:
+        """Returns the actual datetime"""
         return datetime.now()
 
     @classmethod

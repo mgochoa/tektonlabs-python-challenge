@@ -12,6 +12,8 @@ logger = logging.getLogger(__name__)
 
 
 class ProductDiscount(BaseModel):
+    """Pydantic model to calculate the discount value, raw discount is not going to be a perfect percentage,
+    so we calculate a percentage using mod 100"""
     raw_discount: int
     value: Optional[float]
 
@@ -39,6 +41,10 @@ class ProductDiscountRepository(HttpRepository):
     url: str = settings.discount_api_url
 
     def get_discount(self) -> ProductDiscount:
+        """ Pick a random product for 1-100, then call the http endpoint for discount service
+        Check if there is no HttpError from the response calling raise_for_status()
+        return a ProductDiscountObject with the response data
+        """
         random_product = random.randint(1, 100)
         query = f"{self.url}/products/{random_product}"
 

@@ -10,6 +10,7 @@ from tekton_challenge.services.product import ProductService
 
 
 class Container(DeclarativeContainer):
+    """ Create the products inventory container"""
     db = Singleton(Database, db_url=settings.db_url)
     cache_repository = Singleton(LocalCacheRepository)
 
