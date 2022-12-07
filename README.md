@@ -34,7 +34,7 @@
 
     http://localhost:8000/docs
 
-![](C:\Users\Usuario\python\tekton-challenge\docs\openapi_docs.png)
+![Docs preview](./docs/openapi_docs.png)
 
 ## How to test it
 
@@ -81,4 +81,4 @@
 
 ## Components Layered Diagram
 
-![Components layered diagram](docs\component_diagram.png)
+![Components layered diagram](./docs/component_diagram.png)
