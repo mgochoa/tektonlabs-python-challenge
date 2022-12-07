@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 
 
 class ProductBase(BaseModel):
@@ -8,11 +8,16 @@ class ProductBase(BaseModel):
     status_name: str
     description: str
     price: float
-    discount: int
+    discount: float
 
 
 class Product(ProductBase):
     product_id: int
+    final_price: Optional[float]
+
+    @validator("final_price", always=True)
+    def calculate_final_price(cls, v, values, **kwargs):
+        return values["price"] - values["price"] * values["discount"]
 
     class Config:
         orm_mode = True
@@ -23,8 +28,8 @@ class ProductCreate(ProductBase):
 
 
 class ProductUpdate(BaseModel):
-    name: Optional[str]
-    status_name: Optional[str]
-    description: Optional[str]
-    price: Optional[float]
-    discount: Optional[int]
+    name: str
+    status_name: str
+    description: str
+    price: float
+    discount: float

@@ -20,7 +20,7 @@ def test_get_product_by_id(client):
     repository_mock = mock.Mock(spec=ProductRepository)
     repository_mock.get_by_id.return_value = Product(product_id=1, name="Product 1",
                                                      description="Description 1", status_name="active",
-                                                     discount=10,
+                                                     discount=0.1,
                                                      price=29.99)
 
     with app.container.products_repository.override(repository_mock):
@@ -56,7 +56,7 @@ def test_create_product(client):
     repository_mock = mock.Mock(spec=ProductRepository)
     product_mock = Product(product_id=1, name="Product 1",
                            description="Description 1", status_name="active",
-                           discount=10,
+                           discount=0.1,
                            price=29.99)
     repository_mock.add.return_value = product_mock
     body = {
@@ -80,8 +80,11 @@ def test_put_product(client):
     repository_mock.update.return_value = None
 
     body = {
-        "name": "Updated name",
-        "description": "Updated description"
+        "name": "My Product",
+        "status_name": "active",
+        "description": "Test product",
+        "price": 100,
+        "discount": 0.5
     }
 
     with app.container.products_repository.override(repository_mock):
@@ -97,10 +100,12 @@ def test_put_product_not_found(client):
     repository_mock.update.side_effect = NotFoundError("Product", product_id_mock)
 
     body = {
-        "name": "Updated name",
-        "description": "Updated description"
+        "name": "My Product",
+        "status_name": "active",
+        "description": "Test product",
+        "price": 100,
+        "discount": 0.5
     }
-
     with app.container.products_repository.override(repository_mock):
         response = client.put("/inventory/products/1", json=body)
     assert response.status_code == HTTP_404_NOT_FOUND

@@ -30,7 +30,7 @@ class ProductRepository:
                 raise_not_found(product_id)
             return product
 
-    def add(self, *, name: str, status_name: str, description: str, price: float, discount: int) -> Product:
+    def add(self, *, name: str, status_name: str, description: str, price: float, discount: float) -> Product:
         with self.session_factory() as session:
             """Add a new product"""
             product = Product(name=name, status_name=status_name, description=description, price=price,

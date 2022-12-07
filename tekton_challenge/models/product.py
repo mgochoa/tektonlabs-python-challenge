@@ -11,4 +11,4 @@ class Product(Base):
     status_name = Column(String)
     description = Column(String)
     price = Column(Float)
-    discount = Column(Integer)
+    discount = Column(Float)
