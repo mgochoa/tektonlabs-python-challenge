@@ -13,6 +13,7 @@ def create_app() -> FastAPI:
 
     # Init WSGI app
     application = FastAPI()
+    application.container = container
 
     # Routers
     application.include_router(inventory_router)

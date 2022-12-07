@@ -13,7 +13,7 @@ router = APIRouter(
 )
 
 
-@router.get("")
+@router.get("", status_code=HTTP_200_OK)
 @inject
 def get_products(
         product_service: ProductService = Depends(Provide[Container.products_service])):
