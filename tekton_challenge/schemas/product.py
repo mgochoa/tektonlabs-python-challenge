@@ -1,12 +1,14 @@
+from typing import Optional
+
 from pydantic import BaseModel
 
 
 class ProductBase(BaseModel):
-    name = str
-    status_name = str
-    description = str
-    price = float
-    discount = int
+    name: str
+    status_name: str
+    description: str
+    price: float
+    discount: int
 
 
 class Product(ProductBase):
@@ -18,3 +20,11 @@ class Product(ProductBase):
 
 class ProductCreate(ProductBase):
     pass
+
+
+class ProductUpdate(BaseModel):
+    name: Optional[str]
+    status_name: Optional[str]
+    description: Optional[str]
+    price: Optional[float]
+    discount: Optional[int]

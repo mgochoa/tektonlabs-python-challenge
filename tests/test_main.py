@@ -1,8 +1,6 @@
-from tekton_challenge.main import app
-
-
 from fastapi.testclient import TestClient
 
+from tekton_challenge.main import app
 
 client = TestClient(app)
 

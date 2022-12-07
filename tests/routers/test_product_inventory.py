@@ -1,8 +1,7 @@
+from fastapi.testclient import TestClient
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
 
 from tekton_challenge.main import app
-
-from fastapi.testclient import TestClient
 
 client = TestClient(app)
 

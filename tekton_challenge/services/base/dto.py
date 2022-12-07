@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from sqlalchemy.orm import Session
+
 from tekton_challenge.config.database import Base
 
 

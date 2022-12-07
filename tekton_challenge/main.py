@@ -1,18 +1,30 @@
+import uvicorn
 from fastapi import FastAPI
 
-from tekton_challenge.config.database import create_tables
+from tekton_challenge.container import Container
 from tekton_challenge.routers import inventory_router
 
-# Database init
-create_tables()
 
-# Init WSGI app
-app = FastAPI()
+def create_app() -> FastAPI:
+    container = Container()
 
-# Routers
-app.include_router(inventory_router)
+    db = container.db()
+    db.create_database()
+
+    # Init WSGI app
+    application = FastAPI()
+
+    # Routers
+    application.include_router(inventory_router)
+
+    @application.get("/")
+    def read_root():
+        return {"Hello": "World"}
+
+    return application
 
 
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
+app = create_app()
+
+if __name__ == "__main__":
+    uvicorn.run("tekton_challenge.main:app", host="0.0.0.0", port=8000, reload=True)

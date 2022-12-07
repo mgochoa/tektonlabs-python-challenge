@@ -1,5 +1,6 @@
 from fastapi import APIRouter
-from .product_inventory import router as product_router
+
+from .products import router as product_router
 
 inventory_router = APIRouter(
     prefix="/inventory"
