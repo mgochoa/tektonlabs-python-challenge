@@ -18,19 +18,6 @@ Base = declarative_base()
 logger = logging.getLogger(__name__)
 
 
-def get_db():
-    """ Get local SQLAlchemy session"""
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-def create_tables():
-    Base.metadata.create_all(bind=engine)
-
-
 class Database:
 
     def __init__(self, db_url: str) -> None:
