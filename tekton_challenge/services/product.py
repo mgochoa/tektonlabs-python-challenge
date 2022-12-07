@@ -26,7 +26,7 @@ class ProductService:
 
     def update_product(self, product_id: int, product_update: ProductUpdate) -> None:
         logger.info(f"Update a product: {product_update}")
-        return self._repository.update(id=product_id, **product_update.dict())
+        return self._repository.update(product_id=product_id, **product_update.dict())
 
     def delete_product_by_id(self, product_id: int) -> None:
         logger.info(f"Create product: {product_id}")
