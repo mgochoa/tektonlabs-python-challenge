@@ -2,7 +2,7 @@
 
 ---
 
-## How to run it
+## Initial setup
 
 ### Create virtual environment
 
@@ -21,6 +21,8 @@
 ### Install dependencies
 
     pip install -r requirements.txt
+
+## How to run it
 
 ### In production
 
