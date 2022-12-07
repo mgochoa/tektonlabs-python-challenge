@@ -6,12 +6,12 @@ from tekton_challenge.repositories.cache import CachedObject, LocalCacheReposito
 from tekton_challenge.repositories.errors import CacheNotFound, TTLExpired
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def local_cache_repository():
     yield LocalCacheRepository()
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def cached_object():
     yield CachedObject(key=1, value="Active", end_datetime=datetime.now() - timedelta(minutes=6))
 

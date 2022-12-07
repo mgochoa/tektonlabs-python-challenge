@@ -5,6 +5,7 @@ from fastapi.logger import logger
 
 from tekton_challenge.models.product import Product
 from tekton_challenge.repositories.cache import CacheNotFound, CacheProtocol, TTLExpired
+from tekton_challenge.repositories.discount import ProductDiscountRepository
 from tekton_challenge.repositories.product import ProductRepository
 from tekton_challenge.schemas.product import ProductCreate, ProductUpdate
 
@@ -13,6 +14,7 @@ from tekton_challenge.schemas.product import ProductCreate, ProductUpdate
 class ProductService:
     _repository: ProductRepository
     _cache_repository: CacheProtocol
+    _discount_repository: ProductDiscountRepository
 
     def get_products(self) -> Iterator[Product]:
         logger.info("Getting all products")
@@ -29,7 +31,11 @@ class ProductService:
 
     def create_product(self, product: ProductCreate) -> Product:
         logger.info(f"Create a product: {product}")
-        return self._repository.add(**product.dict())
+
+        discount = self._discount_repository.get_discount()
+        product.discount = discount.value
+        db_product = self._repository.add(**product.dict())
+        return db_product
 
     def update_product(self, product_id: int, product_update: ProductUpdate) -> None:
         logger.info(f"Update a product: {product_update}")

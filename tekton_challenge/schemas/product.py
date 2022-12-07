@@ -31,7 +31,7 @@ class ProductCreate(ProductBase):
     status: bool
     description: str
     price: float
-    discount: float
+    discount: Optional[float] = 0
 
 
 class ProductUpdate(BaseModel):
@@ -40,4 +40,4 @@ class ProductUpdate(BaseModel):
     status: int
     description: str
     price: float
-    discount: float
+    discount: Optional[float]
