@@ -30,6 +30,10 @@
 
     python ./tekton_challenge/main.py
 
+### Open docs
+
+    http://localhost:8000/docs
+
 ## How to test it
 
 ### Running tests with

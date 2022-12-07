@@ -53,14 +53,21 @@ class LocalCacheRepository(CacheProtocol):
         :param ttl: time to live in seconds
         :return:
         """
-        end_datetime = datetime.now() + timedelta(seconds=ttl)
+        end_datetime = self._get_now() + timedelta(seconds=ttl)
         self._data[key] = CachedObject(key, value, end_datetime)
 
+    def reset(self):
+        self._data = dict()
+
     @staticmethod
-    def check_ttl(cached_object: CachedObject):
+    def _get_now() -> datetime:
+        return datetime.now()
+
+    @classmethod
+    def check_ttl(cls, cached_object: CachedObject):
         """ Checks cache ttl in CachedObject
         :param cached_object:
         :return:
         """
-        if datetime.now() > cached_object.end_datetime:
+        if cls._get_now() > cached_object.end_datetime:
             raise TTLExpired(cached_object.key)
