@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Float, Integer, String
+from sqlalchemy import Boolean, Column, Float, Integer, String
 
 from tekton_challenge.config.database import Base
 
@@ -8,7 +8,7 @@ class Product(Base):
 
     product_id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    status_name = Column(String)
+    status = Column(Boolean)
     description = Column(String)
     price = Column(Float)
     discount = Column(Float)

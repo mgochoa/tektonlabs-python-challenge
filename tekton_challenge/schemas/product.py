@@ -4,16 +4,18 @@ from pydantic import BaseModel, validator
 
 
 class ProductBase(BaseModel):
+    """ Base to show in presentation layer"""
     name: str
-    status_name: str
     description: str
     price: float
     discount: float
 
 
 class Product(ProductBase):
+    """ Schema to show the products"""
     product_id: int
     final_price: Optional[float]
+    status_name: Optional[str]
 
     @validator("final_price", always=True)
     def calculate_final_price(cls, v, values, **kwargs):
@@ -24,12 +26,18 @@ class Product(ProductBase):
 
 
 class ProductCreate(ProductBase):
-    pass
+    """Schema to create a product"""
+    name: str
+    status: bool
+    description: str
+    price: float
+    discount: float
 
 
 class ProductUpdate(BaseModel):
+    """Schema to update a product"""
     name: str
-    status_name: str
+    status: int
     description: str
     price: float
     discount: float
